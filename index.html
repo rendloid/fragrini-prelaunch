@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fragrini – svět, kde se vůně setkává se šperkem. Zanech nám svůj e-mail a buď první u spuštění.">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Fragrini — Brzy spouštíme</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink:  #F6ABC4;
+            --green: #A7D273;
+            --beige: #E7EBE1;
+            --text:  #404040;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--beige);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3.5rem 1.5rem 2.5rem;
+            font-family: 'Satoshi', 'DM Sans', sans-serif;
+            color: var(--text);
+        }
+
+        /* ── Entrance animation ── */
+        .page-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            animation: fadeUp 0.9s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0);    }
+        }
+
+        /* ── Badge ── */
+        .badge-wrap {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 2.75rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Kytička rotuje přes celý kontejner */
+        .badge-ring {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            animation: slowSpin 22s linear infinite;
+        }
+
+        /* Text logo staticky uprostřed, uvnitř kytičky */
+        .badge-text {
+            position: relative;
+            width: 55%;
+            height: auto;
+            z-index: 1;
+        }
+
+        @keyframes slowSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ── Content ── */
+        .content {
+            max-width: 540px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .main-heading {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: var(--pink);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 2.5vw, 1.02rem);
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .subtitle:last-of-type {
+            margin-bottom: 2.5rem;
+        }
+
+        .subtitle strong {
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        /* ── Form ── */
+        .form-wrap {
+            max-width: 430px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .email-input {
+            flex: 1;
+            min-width: 0;
+            padding: 0.78rem 1.2rem;
+            border: 1.5px solid #ccc;
+            border-radius: 100px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: #fff;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .email-input::placeholder { color: #aaa; }
+        .email-input:focus { border-color: var(--pink); }
+
+        .submit-btn {
+            padding: 0.78rem 1.35rem;
+            background: var(--pink);
+            color: #fff;
+            border: none;
+            border-radius: 100px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .submit-btn:hover   { opacity: 0.88; }
+        .submit-btn:active  { transform: scale(0.97); }
+        .submit-btn:disabled { opacity: 0.6; cursor: default; }
+
+        /* ── GDPR ── */
+        .gdpr-block {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            text-align: left;
+        }
+
+        .gdpr-block input[type="checkbox"] {
+            flex-shrink: 0;
+            margin-top: 0.18rem;
+            width: 1rem;
+            height: 1rem;
+            accent-color: var(--pink);
+            cursor: pointer;
+        }
+
+        .gdpr-block label {
+            font-size: 0.77rem;
+            color: #888;
+            line-height: 1.6;
+            cursor: pointer;
+        }
+
+        .gdpr-block a {
+            color: var(--pink);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* ── Validation / Messages ── */
+        .field-err {
+            display: none;
+            font-size: 0.78rem;
+            color: #c0392b;
+            text-align: left;
+            padding-left: 1rem;
+            margin-top: -0.35rem;
+        }
+
+        .msg {
+            display: none;
+            padding: 0.8rem 1.4rem;
+            border-radius: 100px;
+            font-size: 0.92rem;
+            text-align: center;
+        }
+
+        .msg-success { background: var(--green); color: #fff; }
+        .msg-error   { background: #ffe0e0; color: #c0392b; }
+
+        /* ── Footer ── */
+        footer {
+            margin-top: 4rem;
+            font-size: 0.72rem;
+            color: #bbb;
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        footer a {
+            color: #bbb;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* ── Coming soon label ── */
+        .coming-soon {
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text);
+            opacity: 0.45;
+            margin-bottom: 2rem;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 460px) {
+            .input-row {
+                flex-direction: column;
+            }
+            .submit-btn {
+                width: 100%;
+                padding: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+
+    <h1 class="main-heading">Buď u zrodu Fragrini</h1>
+
+    <div class="badge-wrap">
+        <img class="badge-ring" src="Logo/kytička.png" alt="" aria-hidden="true">
+        <img class="badge-text" src="Logo/logotextfragrini.png" alt="Fragrini logo">
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <p class="subtitle">
+            Brzy Ti odhalíme svět, kde se vůně setkává se šperkem.
+            Zanech nám svůj e-mail a my Tě jako první informujeme
+            o oficiálním spuštění Fragrini.
+        </p>
+        <p class="subtitle">
+            <strong>Získáš tak přednostní přístup k limitované zaváděcí edici.</strong>
+        </p>
+
+        <!--
+            FORMSPREE: zaregistruj se na formspree.io, vytvoř nový formulář
+            a nahraď FORM_ID níže svým skutečným ID (např. xkgwqzrp).
+            Pak odstraň i attribut onsubmit a nechej action.
+        -->
+        <form
+            id="signup-form"
+            class="form-wrap"
+            action="https://formspree.io/f/xyklrvgl"
+            method="POST"
+            novalidate
+        >
+            <div class="input-row">
+                <input
+                    type="email"
+                    name="email"
+                    id="email-field"
+                    class="email-input"
+                    placeholder="tvůj@email.cz"
+                    required
+                    autocomplete="email"
+                    inputmode="email"
+                >
+                <button type="submit" class="submit-btn">Chci být první</button>
+            </div>
+
+            <span class="field-err" id="err-email">Zadej prosím platný e-mail.</span>
+
+            <div class="gdpr-block">
+                <input type="checkbox" id="gdpr" name="gdpr_consent" value="yes" required>
+                <label for="gdpr">
+                    Souhlasím se zpracováním své e-mailové adresy za účelem zasílání informace
+                    o spuštění Fragrini a přednostním přístupu k zaváděcí edici. Souhlas je
+                    dobrovolný a lze ho kdykoli odvolat na&nbsp;
+                    <a href="mailto:info@fragrini.cz">info@fragrini.cz</a>.
+                    Správce osobních údajů: Fragrini&thinsp;s.r.o., IČO: 07542356.
+                    Více v&nbsp;<a href="/zasady-ochrany-soukromi" target="_blank">Zásadách&nbsp;ochrany&nbsp;osobních&nbsp;údajů</a>.
+                </label>
+            </div>
+
+            <span class="field-err" id="err-gdpr">
+                Pro odeslání je nutný souhlas se zpracováním osobních údajů.
+            </span>
+
+            <div class="msg msg-success" id="msg-ok">
+                Díky! Dáme Ti vědět jako první. Těšíme se na Tebe.
+            </div>
+            <div class="msg msg-error" id="msg-err">
+                Něco se pokazilo — zkus to prosím znovu.
+            </div>
+
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2025 Fragrini &nbsp;·&nbsp; <a href="/zasady-ochrany-soukromi">Zásady ochrany osobních údajů</a></p>
+    </footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+    /* ─── Form validation + AJAX submit ─── */
+    (function () {
+        const form      = document.getElementById('signup-form');
+        const emailEl   = document.getElementById('email-field');
+        const gdprEl    = document.getElementById('gdpr');
+        const errEmail  = document.getElementById('err-email');
+        const errGdpr   = document.getElementById('err-gdpr');
+        const msgOk     = document.getElementById('msg-ok');
+        const msgErr    = document.getElementById('msg-err');
+        const btn       = form.querySelector('button[type="submit"]');
+
+        function validEmail(v) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            /* Reset */
+            [errEmail, errGdpr, msgOk, msgErr].forEach(el => el.style.display = 'none');
+
+            let ok = true;
+            if (!validEmail(emailEl.value)) { errEmail.style.display = 'block'; ok = false; }
+            if (!gdprEl.checked)            { errGdpr.style.display  = 'block'; ok = false; }
+            if (!ok) return;
+
+            btn.disabled    = true;
+            btn.textContent = 'Odesílám…';
+
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email:         emailEl.value.trim(),
+                        gdpr_consent:  'yes',
+                        submitted_at:  new Date().toISOString(),
+                    }),
+                });
+
+                if (res.ok) {
+                    form.querySelector('.input-row').style.display  = 'none';
+                    form.querySelector('.gdpr-block').style.display = 'none';
+                    msgOk.style.display = 'block';
+                } else {
+                    throw new Error('non-ok');
+                }
+            } catch (_) {
+                msgErr.style.display = 'block';
+                btn.disabled    = false;
+                btn.textContent = 'Chci být první';
+            }
+        });
+    })();
+</script>
+
+</body>
+</html>
